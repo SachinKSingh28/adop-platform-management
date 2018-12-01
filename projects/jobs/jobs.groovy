@@ -547,7 +547,7 @@ loadCartridgeCollectionJob.with{
         println("Loading cartridge inside folder: " + cartridge.folder)
         println("Cartridge URL: " + cartridge.url)
 
-        build job: projectWorkspace+'/Cartridge_Management/Load_Cartridge', parameters: [[$class: 'StringParameterValue', name: 'CARTRIDGE_FOLDER', value: cartridge.folder], [$class: 'StringParameterValue', name: 'FOLDER_DISPLAY_NAME', value: cartridge.display_name], [$class: 'StringParameterValue', name: 'FOLDER_DESCRIPTION', value: cartridge.desc], [$class: 'StringParameterValue', name: 'CARTRIDGE_CLONE_URL', value: cartridge.url]]
+        build job: projectWorkspace+'/Cartridge_Management/Load_Cartridge', parameters: [[$class: 'StringParameterValue', name: 'CARTRIDGE_FOLDER', value: cartridge.folder], [$class: 'StringParameterValue', name: 'FOLDER_DISPLAY_NAME', value: cartridge.display_name], [$class: 'StringParameterValue', name: 'FOLDER_DESCRIPTION', value: cartridge.desc], [$class: 'StringParameterValue', name: 'CARTRIDGE_CLONE_URL', value: cartridge.url], [$class: 'StringParameterValue', name: 'SCM_NAMESPACE', value: cartridge.scm_namespace], [$class: 'StringParameterValue', name: 'CARTRIDGE_CUSTOM_PROPERTIES', value: cartridge.custom_properties]]
     }
 
 }
@@ -564,12 +564,16 @@ loadCartridgeCollectionJob.with{
         String desc = data.cartridges[i].folder.description
         String folder = data.cartridges[i].folder.name
         String display_name = data.cartridges[i].folder.display_name
+        String scm_namespace = data.cartridges[i].cartridge.scm_namespace
+        String custom_properties = data.cartridges[i].cartridge.custom_properties
 
         cartridges[i] = [
             'url' : url,
             'desc' : desc,
             'folder' : folder,
-            'display_name' : display_name
+            'display_name' : display_name,
+            'scm_namespace' : scm_namespace,
+            'custom_properties' : custom_properties
         ]
     }
 
